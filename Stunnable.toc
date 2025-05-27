@@ -7,4 +7,4 @@
 ## DefaultState: enabled
 ## SavedVariables: StunnableDB
 
-Stunnable.lua
+Main.lua
