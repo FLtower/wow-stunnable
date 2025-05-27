@@ -29,6 +29,11 @@ local function OnPlayerLogin()
     Utils.PrintMsgDebug("--> OnPlayerLogin")
 end
 
+-- Callback function after PLAYER_TARGET_CHANGED event
+local function OnPlayerTargetChanged()
+    Utils.PrintMsgDebug("--> OnPlayerTargetChanged")
+end
+
 -- Called by slash command
 --- @param arguments table list of arguments from text splitted by space
 local function SlashCmd(arguments)
@@ -51,9 +56,14 @@ end
 
 frame = CreateFrame("FRAME", "Stunnable", UIParent)
 frame:RegisterEvent("PLAYER_LOGIN") -- Fired on connection/reload
+frame:RegisterEvent("PLAYER_TARGET_CHANGED") -- Fired whenever the player's target is changed
 frame:SetScript("OnEvent", function(self, event, ...)
 	if event == "PLAYER_LOGIN" then
         Utils.PrintMsgDebug("--> Event PLAYER_LOGIN")
 		OnPlayerLogin()
+	end
+    if event == "PLAYER_TARGET_CHANGED" then
+        Utils.PrintMsgDebug("--> Event PLAYER_TARGET_CHANGED")
+		OnPlayerTargetChanged()
 	end
 end)
