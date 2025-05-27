@@ -45,14 +45,14 @@ local function InitDisplay()
         local button = GetButtonForSpellId(spell.spellId)
         if button then
             local iconOK = "Interface/AddOns/Stunnable/Assets/Icons/Check.tga"
-            button.stunnableIconOK = button:CreateTexture(nil, "ARTWORK", nil, 7)
+            button.stunnableIconOK = button:CreateTexture(nil, "ARTWORK")
             button.stunnableIconOK:SetPoint("BOTTOMRIGHT", -1, 1);
             button.stunnableIconOK:SetSize(24, 24)
             button.stunnableIconOK:SetTexture(iconOK)
             button.stunnableIconOK:Hide()
 
             local iconKO = "Interface/AddOns/Stunnable/Assets/Icons/Cross.tga"
-            button.stunnableIconKO = button:CreateTexture(nil, "ARTWORK", nil, 7)
+            button.stunnableIconKO = button:CreateTexture(nil, "ARTWORK")
             button.stunnableIconKO:SetPoint("BOTTOMRIGHT", -1, 1);
             button.stunnableIconKO:SetSize(24, 24)
             button.stunnableIconKO:SetTexture(iconKO)
