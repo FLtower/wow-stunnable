@@ -18,11 +18,16 @@ local frame = nil
 
 -- Debugging mode on/off
 --- @type boolean
-N.DEBUG = false
+N.DEBUG = true
 
 -----------------------------
 -- Functions
 -----------------------------
+
+-- Callback function after PLAYER_LOGIN event
+local function OnPlayerLogin()
+    Utils.PrintMsgDebug("--> OnPlayerLogin")
+end
 
 -- Called by slash command
 --- @param arguments table list of arguments from text splitted by space
@@ -49,6 +54,6 @@ frame:RegisterEvent("PLAYER_LOGIN") -- Fired on connection/reload
 frame:SetScript("OnEvent", function(self, event, ...)
 	if event == "PLAYER_LOGIN" then
         Utils.PrintMsgDebug("--> Event PLAYER_LOGIN")
-		
+		OnPlayerLogin()
 	end
 end)
