@@ -10,6 +10,6 @@ N.Presets = {}
 -----------------------------
 
 N.Presets.Spells = {
-    132168, -- Warrior - Shockwave
-    132169 -- Warrior - Storm Bolt
+    { spellId = 107570, auraId = 132168 }, -- Warrior - Shockwave
+    { spellId = 46968, auraId = 132169 } -- Warrior - Storm Bolt
 }

@@ -10,8 +10,9 @@
 
 -- A is addon name string and N is namespace table
 local A, N = ...
-local Presets = N.Presets
 local Utils = N.Utils
+local Presets = N.Presets
+local Display = N.Display
 
 -- Main frame for this addon
 --- @type Frame
@@ -25,6 +26,18 @@ N.DEBUG = true
 -- Functions
 -----------------------------
 
+-- Check if a spell is a stun spell
+--- @param spellId any the value to check
+--- @return boolean
+local function IsStunSpell(spellId)
+    for _, spell in ipairs(Presets.Spells) do
+        if spell.spellId == spellId or spell.auraId == spellId then
+            return true
+        end
+    end
+    return false
+end
+
 -- Function used to check if target is stunnable
 --- @param guid? string GUID of unit to test
 local function IsStunnable(guid)
@@ -32,7 +45,10 @@ local function IsStunnable(guid)
 
     if not StunnableDB or not StunnableDB.Mobs then return end
     local value = StunnableDB.Mobs[guid]
+
     Utils.PrintMsgDebug("--> IsStunnable " .. guid .. ": " .. (value and "true" or "false"))
+
+    Display.UpdateDisplay(value)
 end
 
 -- Function used to save mob stunnable status
@@ -40,22 +56,23 @@ end
 local function SaveMob(guid, value)
     if not guid then return end
 
-    Utils.PrintMsgDebug("--> SaveMob " .. guid .. ": " .. (value and "true" or "false"))
-
     if not StunnableDB then StunnableDB = {} end
     if not StunnableDB.Mobs then StunnableDB.Mobs = {} end
     StunnableDB.Mobs[guid] = value
+
+    Utils.PrintMsgDebug("--> SaveMob " .. guid .. ": " .. (value and "true" or "false"))
 end
 
 -- Callback function after PLAYER_LOGIN event
 local function OnPlayerLogin()
     Utils.PrintMsgDebug("--> OnPlayerLogin")
+    Display.InitDisplay()
 end
 
 -- Callback function after PLAYER_TARGET_CHANGED event
 local function OnPlayerTargetChanged()
     Utils.PrintMsgDebug("--> OnPlayerTargetChanged")
-    if UnitExists("target") and UnitCanAttack("player", "target") then
+    if UnitExists("target") and not UnitIsPlayer("target") and UnitCanAttack("player", "target") then
         local targetGUID = UnitGUID("target")
         IsStunnable(targetGUID)
     end
@@ -70,7 +87,7 @@ local function OnCombatLogEventUnfiltered(subEvent, destGUID, spellID)
 
     if not subEvent or not destGUID or not spellID then return end
     if subEvent ~= "SPELL_AURA_APPLIED" and subEvent ~= "SPELL_MISSED" then return end
-    if not Utils.TableHasValue(Presets.Spells, tonumber(spellID)) then return end
+    if not IsStunSpell(tonumber(spellID)) then return end
 
     if subEvent == "SPELL_AURA_APPLIED" then
         Utils.PrintMsgDebug("Spell aura applied " .. spellID .. " to " .. destGUID)

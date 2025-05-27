@@ -3,7 +3,6 @@
 -----------------------------
 
 local A, N = ...
-local Assets = N.Assets
 N.Utils = {}
 
 -----------------------------
@@ -33,17 +32,3 @@ local function StrInColor(str, color)
 	return "|c" .. color .. str .. "|r"
 end
 N.Utils.StrInColor = StrInColor
-
--- Check if a value is in a table
---- @param tab table containing table
---- @param val any the value to check
---- @return boolean
-local function TableHasValue (tab, val)
-    for _, value in ipairs(tab) do
-        if value == val then
-            return true
-        end
-    end
-    return false
-end
-N.Utils.TableHasValue = TableHasValue
