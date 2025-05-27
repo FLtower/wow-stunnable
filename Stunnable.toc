@@ -1,0 +1,10 @@
+## Interface: 110105
+## Title: Stunnable
+## Version: 1.0
+## Notes: Track stunnable mobs
+## Author: Zaki
+## IconTexture: 135860
+## DefaultState: enabled
+## SavedVariables: StunnableDB
+
+Stunnable.lua
