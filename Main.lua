@@ -39,28 +39,26 @@ local function IsStunSpell(spellId)
 end
 
 -- Function used to check if target is stunnable
---- @param guid? string GUID of unit to test
-local function IsStunnable(guid)
-    if not guid then return end
-
+--- @param npcID? string ID of unit to test
+local function IsStunnable(npcID)
     if not StunnableDB or not StunnableDB.Mobs then return end
-    local value = StunnableDB.Mobs[guid]
+    local value = StunnableDB.Mobs[npcID]
 
-    Utils.PrintMsgDebug("--> IsStunnable " .. guid .. ": " .. (value and "true" or "false"))
+    Utils.PrintMsgDebug("--> IsStunnable " .. npcID .. ": " .. (value == nil and "nil" or (value and "true" or "false")))
 
     Display.UpdateDisplay(value)
 end
 
 -- Function used to save mob stunnable status
---- @param guid? string GUID of unit to test
-local function SaveMob(guid, value)
-    if not guid then return end
+--- @param npcID? string ID of unit to test
+local function SaveMob(npcID, value)
+    if not npcID then return end
 
     if not StunnableDB then StunnableDB = {} end
     if not StunnableDB.Mobs then StunnableDB.Mobs = {} end
-    StunnableDB.Mobs[guid] = value
+    StunnableDB.Mobs[npcID] = value
 
-    Utils.PrintMsgDebug("--> SaveMob " .. guid .. ": " .. (value and "true" or "false"))
+    Utils.PrintMsgDebug("--> SaveMob " .. npcID .. ": " .. (value and "true" or "false"))
 end
 
 -- Callback function after PLAYER_LOGIN event
@@ -74,7 +72,12 @@ local function OnPlayerTargetChanged()
     Utils.PrintMsgDebug("--> OnPlayerTargetChanged")
     if UnitExists("target") and not UnitIsPlayer("target") and UnitCanAttack("player", "target") then
         local targetGUID = UnitGUID("target")
-        IsStunnable(targetGUID)
+        if targetGUID then
+            local npcID = select(6, strsplit("-", targetGUID))
+            IsStunnable(npcID)
+        end
+    else
+        Display.UpdateDisplay()
     end
 end
 
@@ -89,13 +92,14 @@ local function OnCombatLogEventUnfiltered(subEvent, destGUID, spellID)
     if subEvent ~= "SPELL_AURA_APPLIED" and subEvent ~= "SPELL_MISSED" then return end
     if not IsStunSpell(tonumber(spellID)) then return end
 
+    local npcID = select(6, strsplit("-", destGUID))
     if subEvent == "SPELL_AURA_APPLIED" then
-        Utils.PrintMsgDebug("Spell aura applied " .. spellID .. " to " .. destGUID)
-        SaveMob(destGUID, true)
+        Utils.PrintMsgDebug("Spell aura applied " .. spellID .. " to " .. npcID)
+        SaveMob(npcID, true)
     end
     if subEvent == "SPELL_MISSED" then
-        Utils.PrintMsgDebug("Spell missed " .. spellID .. " to " .. destGUID)
-        SaveMob(destGUID, false)
+        Utils.PrintMsgDebug("Spell missed " .. spellID .. " to " .. npcID)
+        SaveMob(npcID, false)
     end
 end
 

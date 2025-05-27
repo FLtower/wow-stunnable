@@ -67,7 +67,7 @@ N.Display.InitDisplay = InitDisplay
 -- Function used to check if target is stunnable
 --- @param value? boolean is target stunnable
 local function UpdateDisplay(value)
-    Utils.PrintMsgDebug("--> UpdateDisplay " .. (value and "true" or "false"))
+    Utils.PrintMsgDebug("--> UpdateDisplay " .. (value == nil and "nil" or (value and "true" or "false")))
 
     for _, button in ipairs(buttons) do
         button.stunnableIconOK:Hide()
