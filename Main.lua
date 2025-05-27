@@ -20,7 +20,7 @@ local frame = nil
 
 -- Debugging mode on/off
 --- @type boolean
-N.DEBUG = true
+N.DEBUG = false
 
 -----------------------------
 -- Functions
