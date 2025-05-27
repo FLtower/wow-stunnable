@@ -34,6 +34,11 @@ local function OnPlayerTargetChanged()
     Utils.PrintMsgDebug("--> OnPlayerTargetChanged")
 end
 
+-- Callback function after COMBAT_LOG_EVENT_UNFILTERED event
+local function OnCombatLogEventUnfiltered()
+    Utils.PrintMsgDebug("--> OnCombatLogEventUnfiltered")
+end
+
 -- Called by slash command
 --- @param arguments table list of arguments from text splitted by space
 local function SlashCmd(arguments)
@@ -57,6 +62,7 @@ end
 frame = CreateFrame("FRAME", "Stunnable", UIParent)
 frame:RegisterEvent("PLAYER_LOGIN") -- Fired on connection/reload
 frame:RegisterEvent("PLAYER_TARGET_CHANGED") -- Fired whenever the player's target is changed
+frame:RegisterEvent("COMBAT_LOG_EVENT_UNFILTERED") -- Used to parse all events the moment they happen
 frame:SetScript("OnEvent", function(self, event, ...)
 	if event == "PLAYER_LOGIN" then
         Utils.PrintMsgDebug("--> Event PLAYER_LOGIN")
@@ -65,5 +71,9 @@ frame:SetScript("OnEvent", function(self, event, ...)
     if event == "PLAYER_TARGET_CHANGED" then
         Utils.PrintMsgDebug("--> Event PLAYER_TARGET_CHANGED")
 		OnPlayerTargetChanged()
+	end
+    if event == "COMBAT_LOG_EVENT_UNFILTERED" then
+        Utils.PrintMsgDebug("--> Event COMBAT_LOG_EVENT_UNFILTERED")
+		OnCombatLogEventUnfiltered()
 	end
 end)
