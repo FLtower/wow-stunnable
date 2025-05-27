@@ -7,3 +7,4 @@ World of Warcraft addon : Track stunnable mobs.
 - Add display on target frame.
 - Add customizations (toggle displays).
 - Get mobs presets from other addon such as MDT.
+- Add other incapaciting auras (sleep, etc.).
