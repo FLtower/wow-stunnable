@@ -64,7 +64,7 @@ local function InitDisplay()
 end
 N.Display.InitDisplay = InitDisplay
 
--- Function used to check if target is stunnable
+-- Hide/show icons depending on the stunnable value of the target
 --- @param value? boolean is target stunnable
 local function UpdateDisplay(value)
     Utils.PrintMsgDebug("--> UpdateDisplay " .. (value == nil and "nil" or (value and "true" or "false")))
