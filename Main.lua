@@ -61,12 +61,6 @@ local function SaveMob(npcID, value)
     Utils.PrintMsgDebug("--> SaveMob " .. npcID .. ": " .. (value and "true" or "false"))
 end
 
--- Callback function after PLAYER_LOGIN event
-local function OnPlayerLogin()
-    Utils.PrintMsgDebug("--> OnPlayerLogin")
-    Display.InitDisplay()
-end
-
 -- Callback function after PLAYER_TARGET_CHANGED event
 local function OnPlayerTargetChanged()
     Utils.PrintMsgDebug("--> OnPlayerTargetChanged")
@@ -103,6 +97,19 @@ local function OnCombatLogEventUnfiltered(subEvent, destGUID, spellID)
     end
 end
 
+-- Callback function after ACTIONBAR_SLOT_CHANGED event
+local function OnActionbarSlotChanged()
+    Utils.PrintMsgDebug("--> OnActionbarSlotChanged")
+    Display.ClearDisplay()
+    Display.InitDisplay()
+end
+
+-- Callback function after PLAYER_LOGIN event
+local function OnPlayerLogin()
+    Utils.PrintMsgDebug("--> OnPlayerLogin")
+    Display.InitDisplay()
+end
+
 -- Called by slash command
 --- @param arguments table list of arguments from text splitted by space
 local function SlashCmd(arguments)
@@ -127,6 +134,7 @@ frame = CreateFrame("FRAME", "Stunnable", UIParent)
 frame:RegisterEvent("PLAYER_LOGIN") -- Fired on connection/reload
 frame:RegisterEvent("PLAYER_TARGET_CHANGED") -- Fired whenever the player's target is changed
 frame:RegisterEvent("COMBAT_LOG_EVENT_UNFILTERED") -- Used to parse all events the moment they happen
+frame:RegisterEvent("ACTIONBAR_SLOT_CHANGED") -- Used to update the icons positions on spells
 frame:SetScript("OnEvent", function(self, event)
 	if event == "PLAYER_LOGIN" then
         Utils.PrintMsgDebug("--> Event PLAYER_LOGIN")
@@ -140,5 +148,9 @@ frame:SetScript("OnEvent", function(self, event)
         -- Utils.PrintMsgDebug("--> Event COMBAT_LOG_EVENT_UNFILTERED")
         local _, subEvent, _, _, _, _, _, destGUID, _, _, _, spellID = CombatLogGetCurrentEventInfo()
 		OnCombatLogEventUnfiltered(subEvent, destGUID, spellID)
+	end
+    if event == "ACTIONBAR_SLOT_CHANGED" then
+        Utils.PrintMsgDebug("--> Event ACTIONBAR_SLOT_CHANGED")
+        OnActionbarSlotChanged()
 	end
 end)

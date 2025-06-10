@@ -8,7 +8,7 @@ local Presets = N.Presets
 N.Display = {}
 
 -- Main frame for this addon
---- @type any[]
+--- @type any[] | nil
 local buttons = nil
 
 -----------------------------
@@ -64,10 +64,29 @@ local function InitDisplay()
 end
 N.Display.InitDisplay = InitDisplay
 
+-- Clear the display by hiding the icons and reseting the buttons list
+local function ClearDisplay()
+    Utils.PrintMsgDebug("--> ClearDisplay")
+    
+    if not buttons then return end
+
+    for _, button in ipairs(buttons) do
+        button.stunnableIconOK:Hide()
+        button.stunnableIconKO:Hide()
+        button.stunnableIconOK = nil
+        button.stunnableIconKO = nil
+    end
+
+    buttons = nil
+end
+N.Display.ClearDisplay = ClearDisplay
+
 -- Hide/show icons depending on the stunnable value of the target
 --- @param value? boolean is target stunnable
 local function UpdateDisplay(value)
     Utils.PrintMsgDebug("--> UpdateDisplay " .. (value == nil and "nil" or (value and "true" or "false")))
+
+    if not buttons then return end
 
     for _, button in ipairs(buttons) do
         button.stunnableIconOK:Hide()

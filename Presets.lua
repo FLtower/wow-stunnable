@@ -11,6 +11,7 @@ N.Presets = {}
 
 N.Presets.Spells = {
     { spellId = 853, auraId = 853 }, -- Paladin - Hammer of Justice
+    { spellId = 115750, auraId = 105421 }, -- Paladin - Blinding Light - Disoriented
     { spellId = 107570, auraId = 132168 }, -- Warrior - Shockwave
     { spellId = 46968, auraId = 132169 }, -- Warrior - Storm Bolt
     { spellId = 408, auraId = 408 }, -- Rogue - Kidney Shot
