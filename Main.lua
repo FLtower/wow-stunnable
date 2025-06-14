@@ -39,16 +39,18 @@ local function IsStunSpell(spellId)
 end
 
 -- Function used to check if target is stunnable
---- @param npcID? string ID of unit to test
+--- @param npcID? number ID of unit to test
 local function IsStunnable(npcID)
     if not npcID then return end
 
     local value = nil
 
-    if Presets and Presets.Mobs and Presets.Mobs[npcID] ~= nil then
-        value = Presets.Mobs[npcID]
-    elseif StunnableDB and StunnableDB.Mobs and StunnableDB.Mobs[npcID] ~= nil then
+    if StunnableDB and StunnableDB.Mobs and StunnableDB.Mobs[npcID] ~= nil then
+        Utils.PrintMsgDebug("npcID : " .. npcID .. " found in DB : " .. (Presets.Mobs[npcID] and "true" or "false"))
         value = StunnableDB.Mobs[npcID]
+    elseif Presets and Presets.Mobs and Presets.Mobs[npcID] ~= nil then
+        Utils.PrintMsgDebug("npcID : " .. npcID .. " found in Presets : " .. (Presets.Mobs[npcID] and "true" or "false"))
+        value = Presets.Mobs[npcID]
     end
 
     Utils.PrintMsgDebug("--> IsStunnable " .. npcID .. ": " .. (value == nil and "nil" or (value and "true" or "false")))
@@ -57,7 +59,7 @@ local function IsStunnable(npcID)
 end
 
 -- Function used to save mob stunnable status
---- @param npcID? string ID of unit to test
+--- @param npcID? number ID of unit to test
 local function SaveMob(npcID, value)
     if not npcID then return end
 
@@ -74,7 +76,7 @@ local function OnPlayerTargetChanged()
     if UnitExists("target") and not UnitIsPlayer("target") and UnitCanAttack("player", "target") then
         local targetGUID = UnitGUID("target")
         if targetGUID then
-            local npcID = select(6, strsplit("-", targetGUID))
+            local npcID = tonumber(select(6, strsplit("-", targetGUID)), 10)
             IsStunnable(npcID)
         end
     else
@@ -93,7 +95,7 @@ local function OnCombatLogEventUnfiltered(subEvent, destGUID, spellID)
     if subEvent ~= "SPELL_AURA_APPLIED" and subEvent ~= "SPELL_MISSED" then return end
     if not IsStunSpell(tonumber(spellID)) then return end
 
-    local npcID = select(6, strsplit("-", destGUID))
+    local npcID = tonumber(select(6, strsplit("-", destGUID)), 10)
     if not npcID then return end
 
     if subEvent == "SPELL_AURA_APPLIED" then
