@@ -3,6 +3,7 @@
 -----------------------------
 
 local A, N = ...
+local Utils = N.Utils
 N.Presets = {}
 
 -----------------------------
@@ -31,3 +32,32 @@ N.Presets.Spells = {
     -- Death Knight
     { spellId = 221562, auraId = 221562, type = "Stun" } -- DK - Asphyxiate
 }
+
+N.Presets.Mobs = {}
+
+-----------------------------
+-- Functions
+-----------------------------
+
+-- If MDT is installed, get the mobs from the mythic dungeons
+--- @return table | nil
+local function GetMobs()
+    Utils.PrintMsgDebug("--> GetMDTMobs")
+
+    local mobs = {}
+
+    if MDT then
+        for key, _ in pairs(MDT.dungeonList) do
+            if MDT.dungeonEnemies[key] then
+                for _, value in pairs(MDT.dungeonEnemies[key]) do
+                    local mobId = value["id"]
+                    local stunnable = value["characteristics"] and value["characteristics"]["Stun"]
+                    mobs[mobId] = stunnable or false
+                end
+            end
+        end
+    end
+
+    return mobs
+end
+N.Presets.GetMobs = GetMobs

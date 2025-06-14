@@ -41,8 +41,15 @@ end
 -- Function used to check if target is stunnable
 --- @param npcID? string ID of unit to test
 local function IsStunnable(npcID)
-    if not StunnableDB or not StunnableDB.Mobs then return end
-    local value = StunnableDB.Mobs[npcID]
+    if not npcID then return end
+
+    local value = nil
+
+    if Presets and Presets.Mobs and Presets.Mobs[npcID] ~= nil then
+        value = Presets.Mobs[npcID]
+    elseif StunnableDB and StunnableDB.Mobs and StunnableDB.Mobs[npcID] ~= nil then
+        value = StunnableDB.Mobs[npcID]
+    end
 
     Utils.PrintMsgDebug("--> IsStunnable " .. npcID .. ": " .. (value == nil and "nil" or (value and "true" or "false")))
 
@@ -87,6 +94,8 @@ local function OnCombatLogEventUnfiltered(subEvent, destGUID, spellID)
     if not IsStunSpell(tonumber(spellID)) then return end
 
     local npcID = select(6, strsplit("-", destGUID))
+    if not npcID then return end
+
     if subEvent == "SPELL_AURA_APPLIED" then
         Utils.PrintMsgDebug("Spell aura applied " .. spellID .. " to " .. npcID)
         SaveMob(npcID, true)
@@ -107,6 +116,7 @@ end
 -- Callback function after PLAYER_LOGIN event
 local function OnPlayerLogin()
     Utils.PrintMsgDebug("--> OnPlayerLogin")
+    Presets.Mobs = Presets.GetMobs()
     Display.InitDisplay()
 end
 
