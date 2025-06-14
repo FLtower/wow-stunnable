@@ -3,7 +3,7 @@
 World of Warcraft addon : Track stunnable mobs.
 
 - Works only with ElvUI.
-- Track only Stun for now.
+- Track only Stun for now (and a few Disorient and Incapacitate).
 
 ### To Do List
 
