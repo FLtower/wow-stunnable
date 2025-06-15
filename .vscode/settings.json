@@ -16,7 +16,8 @@
     ],
     "Lua.diagnostics.globals": [
         "SlashCmdList",
-        "Add",
-        "StunnableDB"
+        "StunnableDB",
+        "ElvUI",
+        "MDT"
     ]
 }
