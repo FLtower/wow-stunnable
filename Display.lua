@@ -74,10 +74,14 @@ local function ClearDisplay()
     if not buttons then return end
 
     for _, button in ipairs(buttons) do
-        button.stunnableIconOK:Hide()
-        button.stunnableIconKO:Hide()
-        button.stunnableIconOK = nil
-        button.stunnableIconKO = nil
+        if button.stunnableIconOK then
+            button.stunnableIconOK:Hide()
+            button.stunnableIconOK = nil
+        end
+        if button.stunnableIconKO then
+            button.stunnableIconKO:Hide()
+            button.stunnableIconKO = nil
+        end
     end
 
     buttons = nil
@@ -87,7 +91,7 @@ N.Display.ClearDisplay = ClearDisplay
 -- Hide/show icons depending on the stunnable value of the target
 --- @param value? boolean is target stunnable
 local function UpdateDisplay(value)
-    Utils.PrintMsgDebug("---> UpdateDisplay " .. (value == nil and "nil" or (value and "true" or "false")))
+    Utils.PrintMsgDebug("---> UpdateDisplay value: " .. (value == nil and "nil" or (value and "true" or "false")))
 
     if not buttons then return end
 
