@@ -20,7 +20,7 @@ local frame = nil
 
 -- Debugging mode on/off
 --- @type boolean
-N.DEBUG = false
+N.DEBUG = true
 
 -----------------------------
 -- Functions
@@ -46,14 +46,14 @@ local function IsStunnable(npcID)
     local value = nil
 
     if StunnableDB and StunnableDB.Mobs and StunnableDB.Mobs[npcID] ~= nil then
-        Utils.PrintMsgDebug("npcID : " .. npcID .. " found in DB : " .. (Presets.Mobs[npcID] and "true" or "false"))
+        Utils.PrintMsgDebug("--> IsStunnable npcID: " .. npcID .. " found in DB")
         value = StunnableDB.Mobs[npcID]
     elseif Presets and Presets.Mobs and Presets.Mobs[npcID] ~= nil then
-        Utils.PrintMsgDebug("npcID : " .. npcID .. " found in Presets : " .. (Presets.Mobs[npcID] and "true" or "false"))
+        Utils.PrintMsgDebug("--> IsStunnable npcID: " .. npcID .. " found in Presets")
         value = Presets.Mobs[npcID]
     end
 
-    Utils.PrintMsgDebug("--> IsStunnable " .. npcID .. ": " .. (value == nil and "nil" or (value and "true" or "false")))
+    Utils.PrintMsgDebug("--> IsStunnable npcID: " .. npcID .. " = " .. (value == nil and "nil" or (value and "true" or "false")))
 
     Display.UpdateDisplay(value)
 end
