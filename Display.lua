@@ -25,12 +25,13 @@ function GetButtonForSpellId(spellId)
     local slot = slots[1]
     if not slot then return end
 
-    local barIndex = math.floor(slot / 12) + 1
-    local buttonIndex = math.fmod(slot, 12) -- or 'slot % 12'
+    local barIndex = math.floor((slot - 1) / 12) + 1
+    local buttonIndex = math.fmod((slot - 1), 12) + 1
 
     -- if ElvUI addon is enabled
     if ElvUI then
         local E = unpack(ElvUI)
+        if not E or not E.ActionBars or not E.ActionBars.handledBars or not E.ActionBars.handledBars["bar" .. barIndex] then return end
         return E.ActionBars.handledBars["bar" .. barIndex].buttons[buttonIndex]
     end
 
