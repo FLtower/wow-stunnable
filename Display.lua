@@ -7,9 +7,14 @@ local Utils = N.Utils
 local Presets = N.Presets
 N.Display = {}
 
--- Main frame for this addon
+-- List of buttons of control spells
 --- @type any[] | nil
 local buttons = nil
+
+-- Is stunnable
+--- @type table
+local controls = { Stun = nil }
+N.Display.Controls = controls
 
 -----------------------------
 -- Functions
@@ -40,8 +45,8 @@ function GetButtonForSpellId(spellId)
 end
 
 -- Init the display by adding two icons to the stun spells
-local function InitDisplay()
-    Utils.PrintMsgDebug("---> InitDisplay")
+local function Init()
+    Utils.PrintMsgDebug("---> Display.Init")
 
     buttons = {}
     for _, spell in ipairs(Presets.Spells) do
@@ -65,11 +70,11 @@ local function InitDisplay()
         end
     end
 end
-N.Display.InitDisplay = InitDisplay
+N.Display.Init = Init
 
 -- Clear the display by hiding the icons and reseting the buttons list
-local function ClearDisplay()
-    Utils.PrintMsgDebug("---> ClearDisplay")
+local function Clear()
+    Utils.PrintMsgDebug("---> Display.Clear")
     
     if not buttons then return end
 
@@ -86,23 +91,22 @@ local function ClearDisplay()
 
     buttons = nil
 end
-N.Display.ClearDisplay = ClearDisplay
+N.Display.Clear = Clear
 
 -- Hide/show icons depending on the stunnable value of the target
---- @param value? boolean is target stunnable
-local function UpdateDisplay(value)
-    Utils.PrintMsgDebug("---> UpdateDisplay value: " .. (value == nil and "nil" or (value and "true" or "false")))
+local function Update()
+    Utils.PrintMsgDebug("---> Display.Update stunnable: " .. (controls.Stun == nil and "nil" or (controls.Stun and "true" or "false")))
 
     if not buttons then return end
 
     for _, button in ipairs(buttons) do
         button.stunnableIconOK:Hide()
         button.stunnableIconKO:Hide()
-        if value == true then
+        if controls.Stun == true then
             button.stunnableIconOK:Show()
-        elseif value == false then
+        elseif controls.Stun == false then
             button.stunnableIconKO:Show()
         end
     end
 end
-N.Display.UpdateDisplay = UpdateDisplay
+N.Display.Update = Update

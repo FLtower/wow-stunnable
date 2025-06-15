@@ -55,7 +55,8 @@ local function IsStunnable(npcID)
 
     Utils.PrintMsgDebug("---> IsStunnable npcID: " .. npcID .. " = " .. (value == nil and "nil" or (value and "true" or "false")))
 
-    Display.UpdateDisplay(value)
+    Display.Controls.Stun = value
+    Display.Update()
 end
 
 -- Function used to save mob stunnable status
@@ -80,7 +81,8 @@ local function OnPlayerTargetChanged()
             IsStunnable(npcID)
         end
     else
-        Display.UpdateDisplay()
+        Display.Controls.Stun = nil
+        Display.Update()
     end
 end
 
@@ -111,15 +113,15 @@ end
 -- Callback function after ACTIONBAR_SLOT_CHANGED event
 local function OnActionbarSlotChanged()
     Utils.PrintMsgDebug("--> OnActionbarSlotChanged")
-    Display.ClearDisplay()
-    Display.InitDisplay()
+    Display.Clear()
+    Display.Init()
 end
 
 -- Callback function after PLAYER_LOGIN event
 local function OnPlayerLogin()
     Utils.PrintMsgDebug("--> OnPlayerLogin")
     Presets.Mobs = Presets.GetMobs()
-    Display.InitDisplay()
+    Display.Init()
 end
 
 -- Called by slash command
