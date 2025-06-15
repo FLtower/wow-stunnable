@@ -14,6 +14,7 @@ N.Presets.Spells = {
     -- Paladin
     { spellId = 853, auraId = 853, type = "Stun" }, -- Paladin - Hammer of Justice
     { spellId = 115750, auraId = 105421, type = "Disorient" }, -- Paladin - Blinding Light
+    { spellId = 20066, auraId = 20066, type = "Repentance" }, -- Paladin - Repentance -- Real type is "Incapacitate" -- TO FIX : check auraId
     -- Warrior
     { spellId = 5246, auraId = 5246, type = "Disorient" }, -- Warrior - Intimidating Shout
     { spellId = 12323, auraId = 12323, type = "Slow" }, -- Warrior - Piercing Howl
@@ -24,6 +25,7 @@ N.Presets.Spells = {
     { spellId = 1833, auraId = 1833, type = "Stun" }, -- Rogue - Cheap Shot
     { spellId = 1776, auraId = 1776, type = "Incapacitate" }, -- Rogue - Gouge
     { spellId = 2094, auraId = 2094, type = "Disorient" }, -- Rogue - Blind
+    { spellId = 6770, auraId = 6770, type = "Sap" }, -- Rogue - Sap -- Real type is "Incapacitate"
     -- Hunter
     { spellId = 19577, auraId = 24394, type = "Stun" }, -- Hunter - Intimidation
     { spellId = 474421, auraId = 24394, type = "Stun" }, -- Hunter - Intimidation
@@ -44,17 +46,48 @@ N.Presets.Spells = {
     { spellId = 132469, auraId = 61391, type = "Slow" }, -- Druid - Typhoon
     --{ spellId = 33786, auraId = 33786, type = "Disorient" }, -- Druid - Cyclone
     { spellId = 78675, auraId = 81261, type = "Silence" }, -- Druid - Solar Beam
+    -- Mage
+    { spellId = 120, auraId = 212792, type = "Slow" }, -- Mage - Cone of Cold
+    { spellId = 122, auraId = 122, type = "Root" }, -- Mage - Frost Nova
+    { spellId = 157997, auraId = 157997, type = "Root" }, -- Mage - Ice Nova
+    { spellId = 113724, auraId = 82691, type = "Incapacitate" }, -- Mage - Ring of Frost
+    { spellId = 31661, auraId = 31661, type = "Disorient" }, -- Mage - Dragon's Breath
+    { spellId = 118, auraId = 118, type = "Polymorph" }, -- Mage - Polymorph
+    { spellId = 383121, auraId = 383121, type = "Polymorph" }, -- Mage - Mass Polymorph
+    -- TO FIX : Add Polymorph variations
     -- Shaman
     { spellId = 2484, auraId = 3600, type = "Slow" }, -- Shaman - Earthbind Totem
     { spellId = 51485, auraId = 64695, type = "Root" }, -- Shaman - Earthgrab Totem
     { spellId = 192058, auraId = 118905, type = "Stun" }, -- Shaman - Capacitor Totem
     { spellId = 51490, auraId = 51490, type = "Slow" }, -- Shaman - Thunderstorm
     { spellId = 305483, auraId = 305485, type = "Stun" }, -- Shaman - Lightning Lasso
+    -- Priest
+    { spellId = 453, auraId = 453, type = "Mind Soothe" }, -- Priest - Mind Soothe
+    { spellId = 8122, auraId = 8122, type = "Disorient" }, -- Priest - Psychic Scream
+    { spellId = 9484, auraId = 9484, type = "Shackle Undead" }, -- Priest - Shackle Undead -- Real type is "Stun" -- TO FIX : check auraId
+    { spellId = 205364, auraId = 205364, type = "Mind Control" }, -- Priest - Dominate Mind -- Real type is "Charm"
+    { spellId = 605, auraId = 605, type = "Mind Control" }, -- Priest - Mind Control -- Real type is "Possess"
+    { spellId = 64044, auraId = 64044, type = "Stun" }, -- Priest - Psychic Horror
+    -- Warlock
+    { spellId = 5782, auraId = 118699, type = "Fear" }, -- Warlock - Fear -- Fear as Disorient
+    { spellId = 6789, auraId = 6789, type = "Fear" }, -- Warlock - Mortal Coil -- Fear as Incapacitate
+    { spellId = 5484, auraId = 5484, type = "Fear" }, -- Warlock - Howl of Terror -- Fear as Disorient
+    { spellId = 30283, auraId = 30283, type = "Stun" }, -- Warlock - Shadowfury
+    { spellId = 384069, auraId = 384069, type = "Slow" }, -- Warlock - Shadowflame
     -- Monk
     { spellId = 115078, auraId = 115078, type = "Incapacitate" }, -- Monk - Paralysis
     { spellId = 119381, auraId = 119381, type = "Stun" }, -- Monk - Leg Sweep
+    -- Demon Hunter
+    { spellId = 211881, auraId = 211881, type = "Stun" }, -- DH - Fel Eruption
+    { spellId = 179057, auraId = 179057, type = "Stun" }, -- DH - Chaos Nova
+    { spellId = 207684, auraId = 207685, type = "Disorient" }, -- DH - Sigil of Misery
+    { spellId = 202137, auraId = 204490, type = "Silence" }, -- DH - Sigil of Silence
+    { spellId = 217832, auraId = 217832, type = "Imprison" }, -- DH - Imprison -- Real type is "Incapacitate"
     -- Death Knight
-    { spellId = 221562, auraId = 221562, type = "Stun" } -- DK - Asphyxiate
+    { spellId = 45524, auraId = 45524, type = "Slow" }, -- DK - Chains of Ice -- Can also root with talent, how to handle ?
+    { spellId = 221562, auraId = 221562, type = "Stun" }, -- DK - Asphyxiate
+    { spellId = 207167, auraId = 207167, type = "Disorient" }, -- DK - Blinding Sleet
+    { spellId = 111673, auraId = 111673, type = "Control Undead" } -- DK - Control Undead -- Real type is "Charm" -- TO FIX : check auraId
 }
 
 N.Presets.Mobs = {}

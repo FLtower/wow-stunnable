@@ -13,5 +13,6 @@ World of Warcraft addon : Track stunnable mobs.
 - Add customizations (toggle displays).
 - Add other incapaciting auras (sleep, confused, etc.).
   - Are they different?
-  - List: Incapacitate, Silence, Mind Control, Polymorph, Root, Fear, Disorient, Imprison, Slow, Mind Soothe
+  - List: Incapacitate, Silence, Mind Control, Polymorph, Root, Fear, Disorient, Imprison, Slow, Mind Soothe, Control Undead, Shackle Undead, Repentance, Sap, Charm
+  - Knockback?
   - Also add Taunt?
