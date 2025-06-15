@@ -69,6 +69,10 @@ local function SaveMob(npcID, value)
     StunnableDB.Mobs[npcID] = value
 
     Utils.PrintMsgDebug("---> SaveMob npcID: " .. npcID .. " = " .. (value and "true" or "false"))
+
+    if Display.Controls.Stun == nil then
+        IsStunnable(npcID)
+    end
 end
 
 -- Callback function after PLAYER_TARGET_CHANGED event
@@ -115,6 +119,7 @@ local function OnActionbarSlotChanged()
     Utils.PrintMsgDebug("--> OnActionbarSlotChanged")
     Display.Clear()
     Display.Init()
+    Display.Update()
 end
 
 -- Callback function after PLAYER_LOGIN event
