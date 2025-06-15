@@ -46,14 +46,14 @@ local function IsStunnable(npcID)
     local value = nil
 
     if StunnableDB and StunnableDB.Mobs and StunnableDB.Mobs[npcID] ~= nil then
-        Utils.PrintMsgDebug("--> IsStunnable npcID: " .. npcID .. " found in DB")
+        Utils.PrintMsgDebug("---> IsStunnable npcID: " .. npcID .. " found in DB")
         value = StunnableDB.Mobs[npcID]
     elseif Presets and Presets.Mobs and Presets.Mobs[npcID] ~= nil then
-        Utils.PrintMsgDebug("--> IsStunnable npcID: " .. npcID .. " found in Presets")
+        Utils.PrintMsgDebug("---> IsStunnable npcID: " .. npcID .. " found in Presets")
         value = Presets.Mobs[npcID]
     end
 
-    Utils.PrintMsgDebug("--> IsStunnable npcID: " .. npcID .. " = " .. (value == nil and "nil" or (value and "true" or "false")))
+    Utils.PrintMsgDebug("---> IsStunnable npcID: " .. npcID .. " = " .. (value == nil and "nil" or (value and "true" or "false")))
 
     Display.UpdateDisplay(value)
 end
@@ -67,7 +67,7 @@ local function SaveMob(npcID, value)
     if not StunnableDB.Mobs then StunnableDB.Mobs = {} end
     StunnableDB.Mobs[npcID] = value
 
-    Utils.PrintMsgDebug("--> SaveMob " .. npcID .. ": " .. (value and "true" or "false"))
+    Utils.PrintMsgDebug("---> SaveMob npcID: " .. npcID .. " = " .. (value and "true" or "false"))
 end
 
 -- Callback function after PLAYER_TARGET_CHANGED event
@@ -149,20 +149,20 @@ frame:RegisterEvent("COMBAT_LOG_EVENT_UNFILTERED") -- Used to parse all events t
 frame:RegisterEvent("ACTIONBAR_SLOT_CHANGED") -- Used to update the icons positions on spells
 frame:SetScript("OnEvent", function(self, event)
 	if event == "PLAYER_LOGIN" then
-        Utils.PrintMsgDebug("--> Event PLAYER_LOGIN")
+        Utils.PrintMsgDebug("-> Event PLAYER_LOGIN")
 		OnPlayerLogin()
 	end
     if event == "PLAYER_TARGET_CHANGED" then
-        Utils.PrintMsgDebug("--> Event PLAYER_TARGET_CHANGED")
+        Utils.PrintMsgDebug("-> Event PLAYER_TARGET_CHANGED")
 		OnPlayerTargetChanged()
 	end
     if event == "COMBAT_LOG_EVENT_UNFILTERED" then
-        -- Utils.PrintMsgDebug("--> Event COMBAT_LOG_EVENT_UNFILTERED")
+        -- Utils.PrintMsgDebug("-> Event COMBAT_LOG_EVENT_UNFILTERED")
         local _, subEvent, _, _, _, _, _, destGUID, _, _, _, spellID = CombatLogGetCurrentEventInfo()
 		OnCombatLogEventUnfiltered(subEvent, destGUID, spellID)
 	end
     if event == "ACTIONBAR_SLOT_CHANGED" then
-        Utils.PrintMsgDebug("--> Event ACTIONBAR_SLOT_CHANGED")
+        Utils.PrintMsgDebug("-> Event ACTIONBAR_SLOT_CHANGED")
         OnActionbarSlotChanged()
 	end
 end)

@@ -41,7 +41,7 @@ end
 
 -- Init the display by adding two icons to the stun spells
 local function InitDisplay()
-    Utils.PrintMsgDebug("--> InitDisplay")
+    Utils.PrintMsgDebug("---> InitDisplay")
 
     buttons = {}
     for _, spell in ipairs(Presets.Spells) do
@@ -69,7 +69,7 @@ N.Display.InitDisplay = InitDisplay
 
 -- Clear the display by hiding the icons and reseting the buttons list
 local function ClearDisplay()
-    Utils.PrintMsgDebug("--> ClearDisplay")
+    Utils.PrintMsgDebug("---> ClearDisplay")
     
     if not buttons then return end
 
@@ -87,7 +87,7 @@ N.Display.ClearDisplay = ClearDisplay
 -- Hide/show icons depending on the stunnable value of the target
 --- @param value? boolean is target stunnable
 local function UpdateDisplay(value)
-    Utils.PrintMsgDebug("--> UpdateDisplay " .. (value == nil and "nil" or (value and "true" or "false")))
+    Utils.PrintMsgDebug("---> UpdateDisplay " .. (value == nil and "nil" or (value and "true" or "false")))
 
     if not buttons then return end
 

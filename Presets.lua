@@ -66,7 +66,7 @@ N.Presets.Mobs = {}
 -- If MDT is installed, get the mobs from the mythic dungeons
 --- @return table | nil
 local function GetMobs()
-    Utils.PrintMsgDebug("--> GetMDTMobs")
+    Utils.PrintMsgDebug("---> GetMDTMobs")
 
     local mobs = {}
 
