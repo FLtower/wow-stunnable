@@ -41,6 +41,8 @@ end
 
 -- Init the display by adding two icons to the stun spells
 local function InitDisplay()
+    Utils.PrintMsgDebug("--> InitDisplay")
+
     buttons = {}
     for _, spell in ipairs(Presets.Spells) do
         local button = GetButtonForSpellId(spell.spellId)
