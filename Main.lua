@@ -73,7 +73,7 @@ local function SaveMob(npcID, type, value)
         StunnableDB.Mobs[npcID]["Slow"] = value
     end
 
-    Utils.PrintMsgDebug("---> SaveMob npcID: " .. npcID .. " " .. type .. " = " .. (value and "true" or false))
+    Utils.PrintMsgDebug("---> SaveMob npcID: " .. npcID .. " " .. type .. " = " .. (value and "true" or "false"))
 
     if Display.Target[type] == nil then
         IsStunnable(npcID)

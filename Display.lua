@@ -138,8 +138,8 @@ local function Update()
                 elseif target.Slow == false then
                     button.stunnableIconKO:Show()
                 end
-            end
-            if button.stunnableSpell.type == "Stun" then
+            else
+            --if button.stunnableSpell.type == "Stun" then
                 if target.Stun == true then
                     button.stunnableIconOK:Show()
                 elseif target.Stun == false then
