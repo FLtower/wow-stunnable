@@ -13,7 +13,7 @@ local buttons = nil
 
 -- Working controls based the actual target
 --- @type table
-local target = { CreatureTypeID = nil, Stun = nil }
+local target = { CreatureTypeID = nil, Slow = nil, Stun = nil }
 N.Display.Target = target
 
 -----------------------------
@@ -113,7 +113,7 @@ N.Display.Clear = Clear
 
 -- Hide/show icons depending on the stunnable value of the target
 local function Update()
-    Utils.PrintMsgDebug("---> Display.Update stunnable: " .. (target.Stun == nil and "nil" or (target.Stun and "true" or "false")))
+    Utils.PrintMsgDebug("---> Display.Update")
 
     if not buttons then return end
 
@@ -132,10 +132,19 @@ local function Update()
         if not usableOnTarget then
             button.stunnableIconKO:Show()
         else
-            if target.Stun == true then
-                button.stunnableIconOK:Show()
-            elseif target.Stun == false then
-                button.stunnableIconKO:Show()
+            if button.stunnableSpell.type == "Slow" then
+                if target.Slow == true then
+                    button.stunnableIconOK:Show()
+                elseif target.Slow == false then
+                    button.stunnableIconKO:Show()
+                end
+            end
+            if button.stunnableSpell.type == "Stun" then
+                if target.Stun == true then
+                    button.stunnableIconOK:Show()
+                elseif target.Stun == false then
+                    button.stunnableIconKO:Show()
+                end
             end
         end
     end

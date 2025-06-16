@@ -26,16 +26,16 @@ N.DEBUG = false
 -- Functions
 -----------------------------
 
--- Check if a spell is a stun spell
+-- Check if a spell is a stun spell and if yes returns its type
 --- @param spellId any the value to check
---- @return boolean
+--- @return "Slow" | "Stun" | nil
 local function IsStunSpell(spellId)
     for _, spell in ipairs(Presets.Spells) do
         if spell.spellId == spellId or spell.auraId == spellId then
-            return true
+            return spell.type == "Slow" and "Slow" or "Stun"
         end
     end
-    return false
+    return nil
 end
 
 -- Function used to check if target is stunnable
@@ -43,8 +43,7 @@ end
 local function IsStunnable(npcID)
     if not npcID then return end
 
-    local value = nil
-
+    local value = { Slow = nil, Stun = nil }
     if StunnableDB and StunnableDB.Mobs and StunnableDB.Mobs[npcID] ~= nil then
         Utils.PrintMsgDebug("---> IsStunnable npcID: " .. npcID .. " found in DB")
         value = StunnableDB.Mobs[npcID]
@@ -53,24 +52,30 @@ local function IsStunnable(npcID)
         value = Presets.Mobs[npcID]
     end
 
-    Utils.PrintMsgDebug("---> IsStunnable npcID: " .. npcID .. " = " .. (value == nil and "nil" or (value and "true" or "false")))
-
-    Display.Target.Stun = value
+    Display.Target.Slow = value.Slow
+    Display.Target.Stun = value.Stun
     Display.Update()
 end
 
 -- Function used to save mob stunnable status
---- @param npcID? number ID of unit to test
-local function SaveMob(npcID, value)
+--- @param npcID number ID of unit to test
+--- @param type "Slow" | "Stun" type of the control
+--- @param value boolean the stunnable value
+local function SaveMob(npcID, type, value)
     if not npcID then return end
 
     if not StunnableDB then StunnableDB = {} end
     if not StunnableDB.Mobs then StunnableDB.Mobs = {} end
-    StunnableDB.Mobs[npcID] = value
+    if not StunnableDB.Mobs[npcID] then StunnableDB.Mobs[npcID] = {} end
 
-    Utils.PrintMsgDebug("---> SaveMob npcID: " .. npcID .. " = " .. (value and "true" or "false"))
+    StunnableDB.Mobs[npcID][type] = value
+    if value and type == "Stun" then
+        StunnableDB.Mobs[npcID]["Slow"] = value
+    end
 
-    if Display.Target.Stun == nil then
+    Utils.PrintMsgDebug("---> SaveMob npcID: " .. npcID .. " " .. type .. " = " .. (value and "true" or false))
+
+    if Display.Target[type] == nil then
         IsStunnable(npcID)
     end
 end
@@ -88,6 +93,7 @@ local function OnPlayerTargetChanged()
         end
     else
         Display.Target.CreatureTypeID = nil
+        Display.Target.Slow = nil
         Display.Target.Stun = nil
         Display.Update()
     end
@@ -102,18 +108,20 @@ local function OnCombatLogEventUnfiltered(subEvent, destGUID, spellID)
 
     if not subEvent or not destGUID or not spellID then return end
     if subEvent ~= "SPELL_AURA_APPLIED" and subEvent ~= "SPELL_MISSED" then return end
-    if not IsStunSpell(tonumber(spellID)) then return end
+
+    local stunSpellType = IsStunSpell(tonumber(spellID))
+    if not stunSpellType then return end
 
     local npcID = tonumber(select(6, strsplit("-", destGUID)), 10)
     if not npcID then return end
 
     if subEvent == "SPELL_AURA_APPLIED" then
         Utils.PrintMsgDebug("Spell aura applied " .. spellID .. " to " .. npcID)
-        SaveMob(npcID, true)
+        SaveMob(npcID, stunSpellType, true)
     end
     if subEvent == "SPELL_MISSED" then
         Utils.PrintMsgDebug("Spell missed " .. spellID .. " to " .. npcID)
-        SaveMob(npcID, false)
+        SaveMob(npcID, stunSpellType, false)
     end
 end
 

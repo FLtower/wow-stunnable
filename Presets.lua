@@ -85,7 +85,7 @@ N.Presets.Spells = {
     { spellId = 202137, auraId = 204490, type = "Silence" }, -- DH - Sigil of Silence
     { spellId = 217832, auraId = 217832, type = "Imprison", usableOn = { 1, 3, 7 } }, -- DH - Imprison -- Real type is "Incapacitate"
     -- Death Knight
-    { spellId = 45524, auraId = 45524, type = "Slow" }, -- DK - Chains of Ice -- Can also root with talent, how to handle?
+    { spellId = 45524, auraId = 45524, type = "Slow" }, -- DK - Chains of Ice
     { spellId = 221562, auraId = 221562, type = "Stun" }, -- DK - Asphyxiate
     { spellId = 207167, auraId = 207167, type = "Disorient" }, -- DK - Blinding Sleet
     { spellId = 111673, auraId = 111673, type = "Control Undead", usableOn = { 6 } } -- DK - Control Undead -- Real type is "Charm" -- TO FIX : check auraId
@@ -109,8 +109,9 @@ local function GetMobs()
             if MDT.dungeonEnemies[key] then
                 for _, value in pairs(MDT.dungeonEnemies[key]) do
                     local mobId = value["id"]
-                    local stunnable = value["characteristics"] and value["characteristics"]["Stun"]
-                    mobs[mobId] = stunnable or false
+                    local slow = value["characteristics"] and value["characteristics"]["Slow"]
+                    local stun = value["characteristics"] and value["characteristics"]["Stun"]
+                    mobs[mobId] = { Slow = stun or slow or false, Stun = stun or false }
                 end
             end
         end
