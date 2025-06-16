@@ -35,8 +35,9 @@ local function GetButtonsForSpellId(spellId)
         if ElvUI then
             -- if ElvUI addon is enabled
             local E = unpack(ElvUI)
-            if not E or not E.ActionBars or not E.ActionBars.handledBars or not E.ActionBars.handledBars["bar" .. barIndex] then return end
-            table.insert(results, E.ActionBars.handledBars["bar" .. barIndex].buttons[buttonIndex])
+            if E and E.ActionBars and E.ActionBars.handledBars and E.ActionBars.handledBars["bar" .. barIndex] then
+                table.insert(results, E.ActionBars.handledBars["bar" .. barIndex].buttons[buttonIndex])
+            end
         else
             -- else return wow native button
             local bar = nil
