@@ -11,7 +11,7 @@ N.Display = {}
 --- @type any[] | nil
 local buttons = nil
 
--- Is stunnable
+-- Working controls based the actual target
 --- @type table
 local controls = { Stun = nil }
 N.Display.Controls = controls
