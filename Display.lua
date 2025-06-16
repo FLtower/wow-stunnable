@@ -23,21 +23,30 @@ N.Display.Controls = controls
 -- Retieve the button that contains the spell
 --- @param spellId number spell by id
 --- @return any
-function GetButtonForSpellId(spellId)
+local function GetButtonForSpellId(spellId)
     local slots = C_ActionBar.FindSpellActionButtons(spellId)
     if not slots then return end
 
-    local slot = slots[1]
+    local slot = slots[1] -- to fix
     if not slot then return end
 
     local barIndex = math.floor((slot - 1) / 12) + 1
     local buttonIndex = math.fmod((slot - 1), 12) + 1
 
-    -- if ElvUI addon is enabled
     if ElvUI then
+        -- if ElvUI addon is enabled
         local E = unpack(ElvUI)
         if not E or not E.ActionBars or not E.ActionBars.handledBars or not E.ActionBars.handledBars["bar" .. barIndex] then return end
         return E.ActionBars.handledBars["bar" .. barIndex].buttons[buttonIndex]
+    else
+        -- else return wow native button
+        local bar = nil
+        if barIndex == 1 then bar = "ActionButton"
+        elseif barIndex == 5 then bar = "MultiBarBottomLeft"
+        elseif barIndex == 4 then bar = "MultiBarBottomRight"
+        elseif barIndex == 2 then bar = "MultiBarRight"
+        elseif barIndex == 3 then bar = "MultiBarLeft" end
+        return bar and _G[bar .. buttonIndex]
     end
 
     -- else return wow button
