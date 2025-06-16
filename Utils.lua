@@ -26,9 +26,10 @@ N.Utils.PrintMsgDebug = PrintMsgDebug
 
 -- Add color, blizzard way, to string
 --- @param str string string to write
---- @param color string color in hexa foramt argb
+--- @param color? string color in hexa foramt argb
 --- @return string
 local function StrInColor(str, color)
+	if not color then color = "ff91ffdc" end
 	return "|c" .. color .. str .. "|r"
 end
 N.Utils.StrInColor = StrInColor
