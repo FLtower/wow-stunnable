@@ -8,7 +8,7 @@ local Presets = N.Presets
 N.Display = {}
 
 -- List of buttons of control spells
---- @type any[] | nil
+--- @type table | nil
 local buttons = nil
 
 -- Working controls based the actual target
@@ -20,37 +20,41 @@ N.Display.Controls = controls
 -- Functions
 -----------------------------
 
--- Retieve the button that contains the spell
+-- Retieve the buttons that contains the spell
 --- @param spellId number spell by id
---- @return any
-local function GetButtonForSpellId(spellId)
-    local slots = C_ActionBar.FindSpellActionButtons(spellId)
-    if not slots then return end
+--- @return table
+local function GetButtonsForSpellId(spellId)
+    local slots = C_ActionBar.FindSpellActionButtons(spellId) or {}
 
-    local slot = slots[1] -- to fix
-    if not slot then return end
+    local results = {}
 
-    local barIndex = math.floor((slot - 1) / 12) + 1
-    local buttonIndex = math.fmod((slot - 1), 12) + 1
+    for _, slot in ipairs(slots) do
+        local barIndex = math.floor((slot - 1) / 12) + 1
+        local buttonIndex = math.fmod((slot - 1), 12) + 1
 
-    if ElvUI then
-        -- if ElvUI addon is enabled
-        local E = unpack(ElvUI)
-        if not E or not E.ActionBars or not E.ActionBars.handledBars or not E.ActionBars.handledBars["bar" .. barIndex] then return end
-        return E.ActionBars.handledBars["bar" .. barIndex].buttons[buttonIndex]
-    else
-        -- else return wow native button
-        local bar = nil
-        if barIndex == 1 then bar = "ActionButton"
-        elseif barIndex == 5 then bar = "MultiBarBottomLeft"
-        elseif barIndex == 4 then bar = "MultiBarBottomRight"
-        elseif barIndex == 2 then bar = "MultiBarRight"
-        elseif barIndex == 3 then bar = "MultiBarLeft" end
-        return bar and _G[bar .. buttonIndex]
+        if ElvUI then
+            -- if ElvUI addon is enabled
+            local E = unpack(ElvUI)
+            if not E or not E.ActionBars or not E.ActionBars.handledBars or not E.ActionBars.handledBars["bar" .. barIndex] then return end
+            table.insert(results, E.ActionBars.handledBars["bar" .. barIndex].buttons[buttonIndex])
+        else
+            -- else return wow native button
+            local bar = nil
+            if barIndex == 1 then bar = "Action"
+            elseif barIndex == 6 then bar = "MultiBarBottomLeft"
+            elseif barIndex == 5 then bar = "MultiBarBottomRight"
+            elseif barIndex == 3 then bar = "MultiBarRight"
+            elseif barIndex == 4 then bar = "MultiBarLeft"
+            elseif barIndex == 13 then bar = "MultiBar5"
+            elseif barIndex == 14 then bar = "MultiBar6"
+            elseif barIndex == 15 then bar = "MultiBar7" end
+            if bar then
+                table.insert(results, _G[bar .. "Button" .. buttonIndex])
+            end
+        end
     end
 
-    -- else return wow button
-    -- TO FIX
+    return results
 end
 
 -- Init the display by adding two icons to the stun spells
@@ -59,23 +63,25 @@ local function Init()
 
     buttons = {}
     for _, spell in ipairs(Presets.Spells) do
-        local button = GetButtonForSpellId(spell.spellId)
-        if button then
-            local iconOK = "Interface/AddOns/Stunnable/Assets/Icons/Check.tga"
-            button.stunnableIconOK = button:CreateTexture(nil, "ARTWORK")
-            button.stunnableIconOK:SetPoint("BOTTOMRIGHT", -1, 1);
-            button.stunnableIconOK:SetSize(24, 24)
-            button.stunnableIconOK:SetTexture(iconOK)
-            button.stunnableIconOK:Hide()
+        local results = GetButtonsForSpellId(spell.spellId)
+        for _, button in ipairs(results) do
+            if button then
+                local iconOK = "Interface/AddOns/Stunnable/Assets/Icons/Check.tga"
+                button.stunnableIconOK = button:CreateTexture(nil, "ARTWORK")
+                button.stunnableIconOK:SetPoint("BOTTOMRIGHT", -1, 1);
+                button.stunnableIconOK:SetSize(24, 24)
+                button.stunnableIconOK:SetTexture(iconOK)
+                button.stunnableIconOK:Hide()
 
-            local iconKO = "Interface/AddOns/Stunnable/Assets/Icons/Cross.tga"
-            button.stunnableIconKO = button:CreateTexture(nil, "ARTWORK")
-            button.stunnableIconKO:SetPoint("BOTTOMRIGHT", -1, 1);
-            button.stunnableIconKO:SetSize(24, 24)
-            button.stunnableIconKO:SetTexture(iconKO)
-            button.stunnableIconKO:Hide()
+                local iconKO = "Interface/AddOns/Stunnable/Assets/Icons/Cross.tga"
+                button.stunnableIconKO = button:CreateTexture(nil, "ARTWORK")
+                button.stunnableIconKO:SetPoint("BOTTOMRIGHT", -1, 1);
+                button.stunnableIconKO:SetSize(24, 24)
+                button.stunnableIconKO:SetTexture(iconKO)
+                button.stunnableIconKO:Hide()
 
-            table.insert(buttons, button)
+                table.insert(buttons, button)
+            end
         end
     end
 end
