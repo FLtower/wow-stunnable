@@ -33,3 +33,14 @@ local function StrInColor(str, color)
 	return "|c" .. color .. str .. "|r"
 end
 N.Utils.StrInColor = StrInColor
+
+-- Test if a table contains a value
+--- @param value any value to test
+function table:contains(value)
+	for i = 1, #self do
+		if (self[i] == value) then
+			return true
+		end
+  	end
+  	return false
+end

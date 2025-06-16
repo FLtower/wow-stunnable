@@ -13,8 +13,8 @@ local buttons = nil
 
 -- Working controls based the actual target
 --- @type table
-local controls = { Stun = nil }
-N.Display.Controls = controls
+local target = { CreatureTypeID = nil, Stun = nil }
+N.Display.Target = target
 
 -----------------------------
 -- Functions
@@ -81,6 +81,8 @@ local function Init()
                 button.stunnableIconKO:SetTexture(iconKO)
                 button.stunnableIconKO:Hide()
 
+                button.stunnableSpell = spell
+
                 table.insert(buttons, button)
             end
         end
@@ -111,17 +113,30 @@ N.Display.Clear = Clear
 
 -- Hide/show icons depending on the stunnable value of the target
 local function Update()
-    Utils.PrintMsgDebug("---> Display.Update stunnable: " .. (controls.Stun == nil and "nil" or (controls.Stun and "true" or "false")))
+    Utils.PrintMsgDebug("---> Display.Update stunnable: " .. (target.Stun == nil and "nil" or (target.Stun and "true" or "false")))
 
     if not buttons then return end
 
     for _, button in ipairs(buttons) do
         button.stunnableIconOK:Hide()
         button.stunnableIconKO:Hide()
-        if controls.Stun == true then
-            button.stunnableIconOK:Show()
-        elseif controls.Stun == false then
+
+        local usableOnTarget = true
+        if target.CreatureTypeID and button.stunnableSpell.usableOn then
+            usableOnTarget = table.contains(button.stunnableSpell.usableOn, target.CreatureTypeID)
+        end
+        if target.CreatureTypeID and button.stunnableSpell.unusableOn then
+            usableOnTarget = not table.contains(button.stunnableSpell.unusableOn, target.CreatureTypeID)
+        end
+
+        if not usableOnTarget then
             button.stunnableIconKO:Show()
+        else
+            if target.Stun == true then
+                button.stunnableIconOK:Show()
+            elseif target.Stun == false then
+                button.stunnableIconKO:Show()
+            end
         end
     end
 end

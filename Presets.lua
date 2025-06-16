@@ -14,7 +14,7 @@ N.Presets.Spells = {
     -- Paladin
     { spellId = 853, auraId = 853, type = "Stun" }, -- Paladin - Hammer of Justice
     { spellId = 115750, auraId = 105421, type = "Disorient" }, -- Paladin - Blinding Light
-    { spellId = 20066, auraId = 20066, type = "Repentance" }, -- Paladin - Repentance -- Real type is "Incapacitate" -- TO FIX : check auraId
+    { spellId = 20066, auraId = 20066, type = "Repentance", usableOn = { 2, 3, 5, 6, 7 } }, -- Paladin - Repentance -- Real type is "Incapacitate" -- TO FIX : check auraId
     -- Warrior
     { spellId = 5246, auraId = 5246, type = "Disorient" }, -- Warrior - Intimidating Shout
     { spellId = 12323, auraId = 12323, type = "Slow" }, -- Warrior - Piercing Howl
@@ -44,8 +44,7 @@ N.Presets.Spells = {
     { spellId = 102359, auraId = 102359, type = "Root" }, -- Druid - Mass Entanglement
     { spellId = 102793, auraId = 127797, type = "Slow" }, -- Druid - Ursol's Vortex
     { spellId = 132469, auraId = 61391, type = "Slow" }, -- Druid - Typhoon
-    --{ spellId = 33786, auraId = 33786, type = "Disorient" }, -- Druid - Cyclone
-    { spellId = 78675, auraId = 81261, type = "Silence" }, -- Druid - Solar Beam
+    { spellId = 33786, auraId = 33786, type = "Disorient" }, -- Druid - Cyclone
     -- Mage
     { spellId = 120, auraId = 212792, type = "Slow" }, -- Mage - Cone of Cold
     { spellId = 122, auraId = 122, type = "Root" }, -- Mage - Frost Nova

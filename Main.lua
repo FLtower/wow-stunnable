@@ -55,7 +55,7 @@ local function IsStunnable(npcID)
 
     Utils.PrintMsgDebug("---> IsStunnable npcID: " .. npcID .. " = " .. (value == nil and "nil" or (value and "true" or "false")))
 
-    Display.Controls.Stun = value
+    Display.Target.Stun = value
     Display.Update()
 end
 
@@ -70,7 +70,7 @@ local function SaveMob(npcID, value)
 
     Utils.PrintMsgDebug("---> SaveMob npcID: " .. npcID .. " = " .. (value and "true" or "false"))
 
-    if Display.Controls.Stun == nil then
+    if Display.Target.Stun == nil then
         IsStunnable(npcID)
     end
 end
@@ -80,12 +80,15 @@ local function OnPlayerTargetChanged()
     Utils.PrintMsgDebug("--> OnPlayerTargetChanged")
     if UnitExists("target") and not UnitIsPlayer("target") and UnitCanAttack("player", "target") then
         local targetGUID = UnitGUID("target")
-        if targetGUID then
+        local _, targetCreatureTypeID = UnitCreatureType("target")
+        if targetGUID and targetCreatureTypeID then
+            Display.Target.CreatureTypeID = targetCreatureTypeID
             local npcID = tonumber(select(6, strsplit("-", targetGUID)), 10)
             IsStunnable(npcID)
         end
     else
-        Display.Controls.Stun = nil
+        Display.Target.CreatureTypeID = nil
+        Display.Target.Stun = nil
         Display.Update()
     end
 end
