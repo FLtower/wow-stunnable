@@ -10,6 +10,8 @@ N.Presets = {}
 -- Lists
 -----------------------------
 
+-- CreatureTypeID https://warcraft.wiki.gg/wiki/API_UnitCreatureType
+
 N.Presets.Spells = {
     -- Paladin
     { spellId = 853, auraId = 853, type = "Stun" }, -- Paladin - Hammer of Justice
@@ -25,7 +27,7 @@ N.Presets.Spells = {
     { spellId = 1833, auraId = 1833, type = "Stun" }, -- Rogue - Cheap Shot
     { spellId = 1776, auraId = 1776, type = "Incapacitate" }, -- Rogue - Gouge
     { spellId = 2094, auraId = 2094, type = "Disorient" }, -- Rogue - Blind
-    { spellId = 6770, auraId = 6770, type = "Sap" }, -- Rogue - Sap -- Real type is "Incapacitate"
+    { spellId = 6770, auraId = 6770, type = "Sap", usableOn = { 1, 2, 3, 7 } }, -- Rogue - Sap -- Real type is "Incapacitate"
     -- Hunter
     { spellId = 19577, auraId = 24394, type = "Stun" }, -- Hunter - Intimidation
     { spellId = 474421, auraId = 24394, type = "Stun" }, -- Hunter - Intimidation
@@ -51,8 +53,8 @@ N.Presets.Spells = {
     { spellId = 157997, auraId = 157997, type = "Root" }, -- Mage - Ice Nova
     { spellId = 113724, auraId = 82691, type = "Incapacitate" }, -- Mage - Ring of Frost
     { spellId = 31661, auraId = 31661, type = "Disorient" }, -- Mage - Dragon's Breath
-    { spellId = 118, auraId = 118, type = "Polymorph" }, -- Mage - Polymorph
-    { spellId = 383121, auraId = 383121, type = "Polymorph" }, -- Mage - Mass Polymorph
+    { spellId = 118, auraId = 118, type = "Polymorph", usableOn = { 1, 7, 8 } }, -- Mage - Polymorph
+    { spellId = 383121, auraId = 383121, type = "Polymorph", usableOn = { 1, 7, 8 } }, -- Mage - Mass Polymorph
     -- TO FIX : Add Polymorph variations
     -- Shaman
     { spellId = 2484, auraId = 3600, type = "Slow" }, -- Shaman - Earthbind Totem
@@ -61,11 +63,11 @@ N.Presets.Spells = {
     { spellId = 51490, auraId = 51490, type = "Slow" }, -- Shaman - Thunderstorm
     { spellId = 305483, auraId = 305485, type = "Stun" }, -- Shaman - Lightning Lasso
     -- Priest
-    { spellId = 453, auraId = 453, type = "Mind Soothe" }, -- Priest - Mind Soothe
+    { spellId = 453, auraId = 453, type = "Mind Soothe", usableOn = { 2, 7 } }, -- Priest - Mind Soothe
     { spellId = 8122, auraId = 8122, type = "Disorient" }, -- Priest - Psychic Scream
-    { spellId = 9484, auraId = 9484, type = "Shackle Undead" }, -- Priest - Shackle Undead -- Real type is "Stun" -- TO FIX : check auraId
-    { spellId = 205364, auraId = 205364, type = "Mind Control" }, -- Priest - Dominate Mind -- Real type is "Charm"
-    { spellId = 605, auraId = 605, type = "Mind Control" }, -- Priest - Mind Control -- Real type is "Possess"
+    { spellId = 9484, auraId = 9484, type = "Shackle Undead", usableOn = { 6 } }, -- Priest - Shackle Undead -- Real type is "Stun" -- TO FIX : check auraId
+    { spellId = 205364, auraId = 205364, type = "Mind Control", unusableOn = { 3, 6, 9 } }, -- Priest - Dominate Mind -- Real type is "Charm"
+    { spellId = 605, auraId = 605, type = "Mind Control", unusableOn = { 3, 6, 9 } }, -- Priest - Mind Control -- Real type is "Possess"
     { spellId = 64044, auraId = 64044, type = "Stun" }, -- Priest - Psychic Horror
     -- Warlock
     { spellId = 5782, auraId = 118699, type = "Fear" }, -- Warlock - Fear -- Fear as Disorient
@@ -81,12 +83,12 @@ N.Presets.Spells = {
     { spellId = 179057, auraId = 179057, type = "Stun" }, -- DH - Chaos Nova
     { spellId = 207684, auraId = 207685, type = "Disorient" }, -- DH - Sigil of Misery
     { spellId = 202137, auraId = 204490, type = "Silence" }, -- DH - Sigil of Silence
-    { spellId = 217832, auraId = 217832, type = "Imprison" }, -- DH - Imprison -- Real type is "Incapacitate"
+    { spellId = 217832, auraId = 217832, type = "Imprison", usableOn = { 1, 3, 7 } }, -- DH - Imprison -- Real type is "Incapacitate"
     -- Death Knight
-    { spellId = 45524, auraId = 45524, type = "Slow" }, -- DK - Chains of Ice -- Can also root with talent, how to handle ?
+    { spellId = 45524, auraId = 45524, type = "Slow" }, -- DK - Chains of Ice -- Can also root with talent, how to handle?
     { spellId = 221562, auraId = 221562, type = "Stun" }, -- DK - Asphyxiate
     { spellId = 207167, auraId = 207167, type = "Disorient" }, -- DK - Blinding Sleet
-    { spellId = 111673, auraId = 111673, type = "Control Undead" } -- DK - Control Undead -- Real type is "Charm" -- TO FIX : check auraId
+    { spellId = 111673, auraId = 111673, type = "Control Undead", usableOn = { 6 } } -- DK - Control Undead -- Real type is "Charm" -- TO FIX : check auraId
 }
 
 N.Presets.Mobs = {}
