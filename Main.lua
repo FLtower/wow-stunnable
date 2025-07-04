@@ -115,13 +115,13 @@ local function OnCombatLogEventUnfiltered(subEvent, destGUID, spellID)
     local npcID = tonumber(select(6, strsplit("-", destGUID)), 10)
     if not npcID then return end
 
-    if subEvent == "SPELL_AURA_APPLIED" then
-        Utils.PrintMsgDebug("Spell aura applied " .. spellID .. " to " .. npcID)
-        SaveMob(npcID, stunSpellType, true)
-    end
     if subEvent == "SPELL_MISSED" then
         Utils.PrintMsgDebug("Spell missed " .. spellID .. " to " .. npcID)
         SaveMob(npcID, stunSpellType, false)
+    end
+    if subEvent == "SPELL_AURA_APPLIED" then
+        Utils.PrintMsgDebug("Spell aura applied " .. spellID .. " to " .. npcID)
+        SaveMob(npcID, stunSpellType, true)
     end
 end
 
