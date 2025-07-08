@@ -55,21 +55,21 @@ N.Presets.Spells = {
     { spellId = 31661, auraId = 31661, type = "Disorient" }, -- Mage - Dragon's Breath
     { spellId = 118, auraId = 118, type = "Polymorph", usableOn = { 1, 7, 8 } }, -- Mage - Polymorph
     { spellId = 383121, auraId = 383121, type = "Polymorph", usableOn = { 1, 7, 8 } }, -- Mage - Mass Polymorph
-    { spellId = 161372, auraId = 118, type = "Polymorph", usableOn = { 1, 7, 8 } }, -- Mage - Polymorph
-    { spellId = 28272, auraId = 118, type = "Polymorph", usableOn = { 1, 7, 8 } }, -- Mage - Polymorph
-    { spellId = 161354, auraId = 118, type = "Polymorph", usableOn = { 1, 7, 8 } }, -- Mage - Polymorph
-    { spellId = 277792, auraId = 118, type = "Polymorph", usableOn = { 1, 7, 8 } }, -- Mage - Polymorph
-    { spellId = 460392, auraId = 118, type = "Polymorph", usableOn = { 1, 7, 8 } }, -- Mage - Polymorph
-    { spellId = 61305, auraId = 118, type = "Polymorph", usableOn = { 1, 7, 8 } }, -- Mage - Polymorph
-    { spellId = 161353, auraId = 118, type = "Polymorph", usableOn = { 1, 7, 8 } }, -- Mage - Polymorph
-    { spellId = 61780, auraId = 118, type = "Polymorph", usableOn = { 1, 7, 8 } }, -- Mage - Polymorph
-    { spellId = 28271, auraId = 118, type = "Polymorph", usableOn = { 1, 7, 8 } }, -- Mage - Polymorph
-    { spellId = 161355, auraId = 118, type = "Polymorph", usableOn = { 1, 7, 8 } }, -- Mage - Polymorph
-    { spellId = 391622, auraId = 118, type = "Polymorph", usableOn = { 1, 7, 8 } }, -- Mage - Polymorph
-    { spellId = 277787, auraId = 118, type = "Polymorph", usableOn = { 1, 7, 8 } }, -- Mage - Polymorph
-    { spellId = 126819, auraId = 118, type = "Polymorph", usableOn = { 1, 7, 8 } }, -- Mage - Polymorph
-    { spellId = 321395, auraId = 118, type = "Polymorph", usableOn = { 1, 7, 8 } }, -- Mage - Polymorph
-    { spellId = 61721, auraId = 118, type = "Polymorph", usableOn = { 1, 7, 8 } }, -- Mage - Polymorph
+    { spellId = 161372, auraId = 161372, type = "Polymorph", usableOn = { 1, 7, 8 } }, -- Mage - Polymorph
+    { spellId = 28272, auraId = 28272, type = "Polymorph", usableOn = { 1, 7, 8 } }, -- Mage - Polymorph
+    { spellId = 161354, auraId = 161354, type = "Polymorph", usableOn = { 1, 7, 8 } }, -- Mage - Polymorph
+    { spellId = 277792, auraId = 277792, type = "Polymorph", usableOn = { 1, 7, 8 } }, -- Mage - Polymorph
+    { spellId = 460392, auraId = 460392, type = "Polymorph", usableOn = { 1, 7, 8 } }, -- Mage - Polymorph
+    { spellId = 61305, auraId = 61305, type = "Polymorph", usableOn = { 1, 7, 8 } }, -- Mage - Polymorph
+    { spellId = 161353, auraId = 161353, type = "Polymorph", usableOn = { 1, 7, 8 } }, -- Mage - Polymorph
+    { spellId = 61780, auraId = 61780, type = "Polymorph", usableOn = { 1, 7, 8 } }, -- Mage - Polymorph
+    { spellId = 28271, auraId = 28271, type = "Polymorph", usableOn = { 1, 7, 8 } }, -- Mage - Polymorph
+    { spellId = 161355, auraId = 161355, type = "Polymorph", usableOn = { 1, 7, 8 } }, -- Mage - Polymorph
+    { spellId = 391622, auraId = 391622, type = "Polymorph", usableOn = { 1, 7, 8 } }, -- Mage - Polymorph
+    { spellId = 277787, auraId = 277787, type = "Polymorph", usableOn = { 1, 7, 8 } }, -- Mage - Polymorph
+    { spellId = 126819, auraId = 126819, type = "Polymorph", usableOn = { 1, 7, 8 } }, -- Mage - Polymorph
+    { spellId = 321395, auraId = 321395, type = "Polymorph", usableOn = { 1, 7, 8 } }, -- Mage - Polymorph
+    { spellId = 61721, auraId = 61721, type = "Polymorph", usableOn = { 1, 7, 8 } }, -- Mage - Polymorph
     -- Shaman
     { spellId = 2484, auraId = 3600, type = "Slow" }, -- Shaman - Earthbind Totem
     { spellId = 51485, auraId = 64695, type = "Root" }, -- Shaman - Earthgrab Totem
