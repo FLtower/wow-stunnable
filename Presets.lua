@@ -102,7 +102,9 @@ N.Presets.Spells = {
     { spellId = 45524, auraId = 45524, type = "Slow" }, -- DK - Chains of Ice
     { spellId = 221562, auraId = 221562, type = "Stun" }, -- DK - Asphyxiate
     { spellId = 207167, auraId = 207167, type = "Disorient" }, -- DK - Blinding Sleet
-    { spellId = 111673, auraId = 111673, type = "Control Undead", usableOn = { 6 } } -- DK - Control Undead -- Real type is "Charm" -- TO FIX : check auraId
+    { spellId = 111673, auraId = 111673, type = "Control Undead", usableOn = { 6 } }, -- DK - Control Undead -- Real type is "Charm" -- TO FIX : check auraId
+        -- Evoker
+    { spellId = 358385, auraId = 355689, type = "Root" }, -- Evoker - Landslide
 }
 
 N.Presets.Mobs = {}
